@@ -12,8 +12,9 @@ public class ExCharacterManager : MonoBehaviour
         {
             for(int i = 0; i < CharacterList.Count; i++)
             {
-                CharacterList[i].DestroyCharacter();
+                CharacterList[i].DestoryCharacter();
             }
         }
     }
+
 }

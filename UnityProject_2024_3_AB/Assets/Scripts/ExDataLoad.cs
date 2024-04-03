@@ -5,11 +5,10 @@ using UnityEngine;
 public class ExDataLoad : MonoBehaviour
 {
     public ExGameData gameData;
-
     void Start()
     {
         Debug.Log("Game Name : " + gameData.gameName);
         Debug.Log("Game Score : " + gameData.gameScore);
         Debug.Log("is Game Active : " + gameData.isGameActive);
-    }
+    }    
 }

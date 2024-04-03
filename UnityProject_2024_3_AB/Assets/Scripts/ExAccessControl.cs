@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class ExAccessControl : MonoBehaviour
 {
-    //ë‹¤ë¥¸ ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì ‘ê·¼ ê°€ëŠ¥
-    public int publicValue;
+    //publicÀ¸·Î ¼±¾ğµÈ º¯¼ö´Â ´Ù¸¥ ½ºÅ©¸³Æ®¿¡¼­ Á÷Á¢ Á¢±Ù °¡´É
+    public int publicVlaue;
 
-    //ê°™ì€ í´ë˜ìŠ¤ ë‚´ì—ì„œë§Œ ì ‘ê·¼ ê°€ëŠ¥
+    //privateÀ¸·Î ¼±¾ğµÈ º¯¼ö´Â °°Àº Å¬·¡½º ³»¿¡¼­¸¸ Á¢±Ù °¡´É
     private int privateValue;
 
-    //ê°™ì€ í´ë˜ìŠ¤ ë° íŒŒìƒ í´ë˜ìŠ¤ì—ì„œ ì ‘ê·¼ ê°€ëŠ¥
+    //protected·Î ¼±¾ğµÈ º¯¼ö´Â °°Àº Å¬·¡½º ¹× ÆÄ»ı Å¬·¡½º¿¡¼­ Á¢±Ù °¡´É
     protected int protectedValue;
 
-    //ê°™ì€ ì–´ì…ˆë¸”ë¦¬(í”„ë¡œì íŠ¸ ë‚´ ë‹¤ë¥¸ ìŠ¤í¬ë¦½íŠ¸)ë‚´ì—ì„œ ì ‘ê·¼ ê°€ëŠ¥
-    internal int internalValue;
-
-    
+    //internal·Î ¼±¾ğµÈ º¯¼ö´Â °°Àº ¾î¼Àºí¸®(ÇÁ·ÎÁ§Æ® ³» ´Ù¸¥ ½ºÅ©¸³Æ®)³»¿¡¼­ Á¢±Ù °¡´É
+    internal int interanlValue;
 
 }

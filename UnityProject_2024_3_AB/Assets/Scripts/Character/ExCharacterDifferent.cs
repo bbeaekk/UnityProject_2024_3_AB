@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class ExCharacterDifferent : ExCharacter
 {
+    //override ¿Á¡§¿«
     protected override void Move()
     {
         base.Move();
-        transform.Translate(Vector3.up * speed * Time.deltaTime);
+        transform.Translate(
+            Vector3.up * speed * Time.deltaTime);
     }
 }

@@ -5,19 +5,20 @@ using UnityEngine;
 public class ExCharacter : MonoBehaviour
 {
     public float speed = 5.0f;
-   
+    
     // Update is called once per frame
     void Update()
     {
         Move();
     }
 
-    protected virtual void Move()   //virtual ê°€ìƒ í•¨ìˆ˜ë¡œ ë§Œë“¤ì–´ì„œ ìƒì†ìì—ê²Œ í•¨ìˆ˜ë¥¼ ë³€í™˜í•˜ë„ë¡ í•œë‹¤.
+    protected virtual void Move() //virtual °¡»ó ÇÔ¼ö·Î ¸¸µé¾î¼­ »ó¼ÓÀÚ¿¡°Ô ÇÔ¼ö¸¦ º¯È¯ÇÏµµ·Ï ÇÑ´Ù. 
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(
+            Vector3.forward * speed * Time.deltaTime);
     }
 
-    public void DestroyCharacter()
+    public void DestoryCharacter()
     {
         Destroy(gameObject);
     }

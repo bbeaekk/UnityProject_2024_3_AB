@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;  //íŒŒì¼ì„ ì½ê³  ì“°ê¸° ìœ„í•´ì„œ
-using System.Xml.Serialization;  //XMLì„ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„œ
+using System.IO;            //ÆÄÀÏÀ» ÀĞ°í ¾²±â À§ÇØ¼­
+using System.Xml.Serialization;     //XMLÀ» »ç¿ëÇÏ±â À§ÇØ¼­ 
+using UnityEngine.UIElements;
 
 [System.Serializable]
-
-public class PlayerData
+public class PlayerData             //ÀúÀåÇÒ µ¥ÀÌÅÍ ¼±¾ğ
 {
     public string playerName;
     public int playerLevel;
@@ -22,54 +22,51 @@ public class ExXMLDataManager : MonoBehaviour
         filePath = Application.persistentDataPath + "/playerData.xml";
         Debug.Log(filePath);
     }
-
+    // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.S))
         {
-            PlayerData playerData = new PlayerData();
-            playerData.playerName = "í”Œë ˆì´ì–´ 1";
-            playerData.playerLevel = 1;
-            playerData.items.Add("ëŒ1");
-            playerData.items.Add("ë°”ìœ„1");
-            SaveData(playerData);
+            PlayerData playerData = new PlayerData();       //ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ »ı¼ºÇÏ¿© 
+            playerData.playerName = "ÇÃ·¹ÀÌ¾î 1";           //µ¥ÀÌÅÍ¸¦ Á¤ÇØÁØ´Ù.
+            playerData.playerLevel = 1; 
+            playerData.items.Add("µ¹1");
+            playerData.items.Add("¹ÙÀ§1");
+            SaveData(playerData);                           //ÇØ´ç ³»¿ëÀ» XML ÆÄÀÏ·Î ÀúÀåÇÑ´Ù. 
         }
 
-        if(Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            PlayerData playerData = new PlayerData();
+            PlayerData playerData = new PlayerData();       //¹ŞÀ» ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ °´Ã¼
 
-            playerData = LoadData();
+            playerData = LoadData();                        //ÆÄÀÏ¿¡¼­ ·ÎµùÇÑ´Ù.
 
-            Debug.Log(playerData.playerName);
+            Debug.Log(playerData.playerName);               //·ÎµåµÈ µ¥ÀÌÅÍ¸¦ Ãâ·ÂÇÑ´Ù. 
             Debug.Log(playerData.playerLevel);
-            for(int i = 0; i< playerData.items.Count; i++)
+            for(int i = 0; i < playerData.items.Count; i++) 
             {
                 Debug.Log(playerData.items[i]);
             }
 
-
-            
         }
     }
 
     void SaveData(PlayerData data)
     {
-        XmlSerializer serializer = new XmlSerializer(typeof(PlayerData));
-        FileStream stream = new FileStream(filePath , FileMode.Create);
-        serializer.Serialize(stream , data);
-        stream.Close();
+        XmlSerializer serialzer = new XmlSerializer(typeof(PlayerData));    //XML Á÷·ÄÈ­
+        FileStream stream = new FileStream(filePath , FileMode.Create); //ÆÄÀÏ »ı¼º ¸ğµå ¼³Á¤
+        serialzer.Serialize(stream, data);                              //ÆÄÀÏ¿¡ µ¥ÀÌÅÍ¸¦ ÀúÀåÇÑ´Ù. 
+        stream.Close();                                     //¹İµå½Ã Close ÇØÁà¾ßÇÑ´Ù. 
     }
-
     PlayerData LoadData()
     {
-        if(File.Exists(filePath))
+        if(File.Exists(filePath)) 
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(PlayerData));
-            FileStream stream = new FileStream(filePath , FileMode.Open);
-            PlayerData data = (PlayerData)serializer.Deserialize(stream);
-            stream.Close();
-            return data;
+            XmlSerializer serialzer = new XmlSerializer(typeof(PlayerData));
+            FileStream stream = new FileStream(filePath, FileMode.Open);            //ÆÄÀÏ ÀĞ±â ¸ğµå·Î ¼³Á¤
+            PlayerData data = (PlayerData)serialzer.Deserialize(stream);            //Á÷¿­È­µÈ°ÍÀ» Å¬·¡½º·Î º¯°æ
+            stream.Close();                                                         //ÆÄÀÏÀ» ´İ´Â´Ù.
+            return data;    
         }
         else
         {

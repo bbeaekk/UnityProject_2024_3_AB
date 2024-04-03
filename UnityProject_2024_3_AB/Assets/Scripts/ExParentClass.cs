@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class ExParentClass : MonoBehaviour
 {
-    //ê°™ì€ í´ë˜ìŠ¤ ë° íŒŒìƒ í´ë˜ìŠ¤ì—ì„œ ì ‘ê·¼
+    //protected·Î ¼±¾ğµÈ º¯¼ö´Â °°Àº Å¬·¡½º ¹× ÆÄ»ı Å¬·¡½º¿¡¼­ Á¢±Ù
     protected int protectedValueParent;
-
 }
-
 public class ExChildClass : ExParentClass
 {
     void Start()

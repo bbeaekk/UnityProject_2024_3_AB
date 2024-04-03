@@ -5,21 +5,22 @@ using UnityEngine;
 
 public class ExPlayer : MonoBehaviour
 {
-    private int health = 100;
+    private int health = 100;       //ÇÃ·¹ÀÌ¾î Ã¼·Â 
 
     public void TakeDamage(int damage)
     {
+        //ÇÃ·¹ÀÌ¾îÀÇ Ã¼·Â °¨¼Ò
         health -= damage;
-        Debug.Log("í”Œë ˆì´ì–´ ì²´ë ¥ : " + health);
-
-        if(health <= 0)
+        Debug.Log("ÇÃ·¹ÀÌ¾î Ã¼·Â : " + health);
+        //Ã¼·ÂÀÌ 0ÀÌÇÏ·Î ¶³¾îÁ³À» ¶§ »ç¸ÁÃ³¸®
+        if (health <= 0)
         {
-            Die();
+            Die();       
         }
     }
-
     private void Die()
     {
-        Debug.Log("í”Œë ˆì´ì–´ ì‚¬ë§");
+        Debug.Log("ÇÃ·¹ÀÌ¾î »ç¸Á");
+        //»ç¸Á ·ÎÁ÷ Ãß°¡
     }
 }

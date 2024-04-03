@@ -5,7 +5,6 @@ using UnityEngine;
 public class ExPlayerPrefabData : MonoBehaviour
 {
     public int Score;
-
     // Update is called once per frame
     void Update()
     {
@@ -13,19 +12,17 @@ public class ExPlayerPrefabData : MonoBehaviour
         {
             SaveData(Score);
         }
-        if(Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             Debug.Log(LoadData());
         }
     }
-
     void SaveData(int score)
     {
-        PlayerPrefs.SetInt("Score" , score);
+        PlayerPrefs.SetInt("Score", score);
         PlayerPrefs.Save();
-        Debug.Log("ì €ì¥ ë˜ì—ˆìŠµë‹ˆë‹¤.");
+        Debug.Log("ÀúÀå µÇ¾ú½À´Ï´Ù.");
     }
-
     int LoadData()
     {
         return PlayerPrefs.GetInt("Score");
