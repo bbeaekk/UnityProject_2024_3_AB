@@ -1,61 +1,98 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Text;
 
-namespace STORYGAME
-{
-
-#if UNITY_EDITOR                                //ÀüÃ³¸®±â À¯´ÏÆ¼ ¿¡µðÅÍ¿¡¼­¸¸ µ¿ÀÛ
-    [CustomEditor(typeof(GameSystem))]
-    public class GameSysteEditor : Editor       //¿¡µðÅÍ¸¦ »ó¼Ó¹Þ´Â Å¬·¡½º »ý¼º
-    {
-        public override void OnInspectorGUI()           //À¯´ÏÆ¼ÀÇ ÀÎ½ºÆåÅÍ ÇÔ¼ö¸¦ ÀçÁ¤ÀÇ
-        {
-            base.OnInspectorGUI();                      //À¯´ÏÆ¼ ÀÎ½ºÆåÅÍ ÇÔ¼ö µ¿ÀÛÀ» °°ÀÌ ÇÑ´Ù. (Base)
-
-            GameSystem gameSystem = (GameSystem)target;
-
-            //Reset Story Models ¹öÆ° »ý¼º
-            if (GUILayout.Button("Reset Story Models"))
-            {
-                gameSystem.ResetStroyModles();
-            }
-        }
-    }
-#endif
-
-    public class GameSystem : MonoBehaviour
-    {
-        public static GameSystem instance;              //°£´ÜÇÑ ½Ì±ÛÅæ È­
-
-        private void Awake()
-        {
-            instance = this;
-        }
-
-        public enum GAMESTATE
-        {
-            STORYSHOW,
-            WAITSELECT,
-            STORYEND,
-            BATTLEMODE,
-            BATTLEDONE,
-            SHOPMODE,
-            ENDMODE,
-        }
-
-        public GAMESTATE currentState;
-        public StroyTableObject[] storyModels;
-        public int currentStoryInex = 1;
 
 #if UNITY_EDITOR
-        [ContextMenu("Reset Story Models")]
-        public void ResetStroyModles()
+[CustomEditor(typeof(GameSystem))]
+public class GameSystemEdiot : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        GameSystem gameSystem = (GameSystem)target;
+
+        //Reset Story Models ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ 
+        if (GUILayout.Button("Rest Stroy Modes"))
         {
-            storyModels = Resources.LoadAll<StroyTableObject>(""); //Resources Æú´õ ¾Æ·¡ ¸ðµç StoryModelÀ» ºÒ·¯ ¿À±â 
+            gameSystem.ResetStoryModels();
         }
-#endif
     }
+}
+#endif
+
+public class GameSystem : MonoBehaviour
+{
+    public static GameSystem instance;                      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ È­
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public enum GAMESTATE
+    {
+        STROYSHOW,
+        WAITSELECT,
+        STORYEND
+    }
+
+    public Stats stats;
+    public GAMESTATE currentState;
+    public int currentStoryIndex = 1;
+    public StoryModel[] stroyModels;
+
+
+
+#if UNITY_EDITOR
+    [ContextMenu("Reset Story Models")]
+    public void ResetStoryModels()
+    {
+        stroyModels = Resources.LoadAll<StoryModel>(""); //Resource ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ ï¿½ï¿½ï¿½ StoryModel ï¿½ï¿½ ï¿½Ò·ï¿½ ï¿½Â´ï¿½. 
+    }
+#endif
+
+    public void StoryShow(int number)
+    {
+        StoryModel tempStoryModels = FindStoryModel(number);
+
+        //StorySystem.Instace.currentStoryModel = tempStoryMoels;
+        //StorySystem.Instance.CoShowText();
+    }
+
+    StoryModel FindStoryModel(int number)
+    {
+        StoryModel tempStoryModels = null;
+        for (int i = 0; i < stroyModels.Length; i++)             //for ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ StroyModel ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ Number ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½. 
+        {
+            if (stroyModels[i].storyNumber == number)
+            {
+                tempStoryModels = stroyModels[i];
+                break;
+            }
+        }
+        return tempStoryModels;
+    }
+
+    StoryModel RandomStory()
+    {
+        StoryModel tempStoryModels = null;
+
+        List<StoryModel> storyModelList = new List<StoryModel>();
+
+        for (int i = 0; i < stroyModels.Length; i++)             //for ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ StroyModel ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ Mainï¿½ï¿½ ï¿½ï¿½ì¸¸ ï¿½ï¿½ï¿½ï¿½. 
+        {
+            if (stroyModels[i].storyType == StoryModel.STORYTYPE.MAIN)
+            {
+                storyModelList.Add(stroyModels[i]);
+            }
+        }
+
+        tempStoryModels = storyModelList[Random.Range(0, storyModelList.Count)]; //ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½
+        currentStoryIndex = tempStoryModels.storyNumber;
+        return tempStoryModels;
+    }
+
 }

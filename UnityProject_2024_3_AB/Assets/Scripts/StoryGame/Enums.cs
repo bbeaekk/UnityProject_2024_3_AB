@@ -1,58 +1,48 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace STORYGAME
+public class Enums
 {
-    public class Enums
+    public enum StroyType       //ï¿½ï¿½ï¿½ä¸® Å¸ï¿½ï¿½
     {
-        public enum StoryType
-        {
-            MAIN,
-            SUB,
-            SERIAL
-        }
-
-        public enum EvenType
-        {
-            NONE,
-            GoToBattle = 100,
-            CheckSTR = 1000,
-            CheckDEX,
-            CheckCON,
-            CheckINT,
-            CheckWIS,
-            CheckCHA
-        }
-        public enum ResultType
-        {
-            ChangeHp,
-            ChangeSp,
-            AddExperience,
-            GoToShop,
-            GoToNextStory,
-            GoToRandomStory,
-            GoToEnding
-        }
+        MAIN,
+        SUB,
+        SERIAL
     }
 
-    [System.Serializable]
-    public class Stats
+    public enum EventType       //ï¿½Ìºï¿½Æ® ï¿½ß»ï¿½ï¿½ï¿½ Ã¼Å©
     {
-        //Ã¼·Â°ú ±â·Â
-        public int hpPoint;
-        public int spPoint;
-
-        public int currentHpPoint;
-        public int currentSpPoint;
-        public int currentXpPoint;
-
-        //±âº» ½ºÅÝ ¼³Á¤
-        public int strength;        //STR
-        public int dexterity;       //DEX
-        public int consitiution;    //CON
-        public int Intelligence;    //INT
-        public int wisdom;          //WIS
-        public int charisma;        //CHA
+        NONE,
+        GOTOBATTLE = 100,
+        CheckSTR = 1000,
     }
+
+    public enum ResultType      //ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    {
+        AddExperience,
+        GoToNextSotry,
+        GoToRandoemStory
+    }
+
+
 }
+
+[System.Serializable]
+public class Stats
+{
+    public int hpPoint;
+    public int spPoint;
+
+    public int currentHpPoint;
+    public int currentSpPoint;
+    public int currentXpPoint;
+
+    public int strength;
+    public int dexterity;
+    public int consitution;
+    public int Intelligence;
+    public int wisdom;
+    public int charisma;
+}
+
