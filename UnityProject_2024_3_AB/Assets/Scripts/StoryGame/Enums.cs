@@ -1,25 +1,25 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enums
+public class Enums 
 {
-    public enum StroyType       //ï¿½ï¿½ï¿½ä¸® Å¸ï¿½ï¿½
+    public enum StroyType       //½ºÅä¸® Å¸ÀÔ
     {
         MAIN,
         SUB,
         SERIAL
     }
 
-    public enum EventType       //ï¿½Ìºï¿½Æ® ï¿½ß»ï¿½ï¿½ï¿½ Ã¼Å©
+    public enum EventType       //ÀÌº¥Æ® ¹ß»ý½Ã Ã¼Å©
     {
         NONE,
         GOTOBATTLE = 100,
         CheckSTR = 1000,
     }
 
-    public enum ResultType      //ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-    {
+    public enum ResultType      //ÀÌº¥Æ® °á°ú ¿­°Å
+    { 
         AddExperience,
         GoToNextSotry,
         GoToRandoemStory

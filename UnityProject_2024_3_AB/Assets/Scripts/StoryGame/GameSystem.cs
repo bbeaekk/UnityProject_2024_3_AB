@@ -1,8 +1,9 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Text;
+using Unity.VisualScripting;
 
 
 #if UNITY_EDITOR
@@ -14,8 +15,8 @@ public class GameSystemEdiot : Editor
         base.OnInspectorGUI();
         GameSystem gameSystem = (GameSystem)target;
 
-        //Reset Story Models ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ 
-        if (GUILayout.Button("Rest Stroy Modes"))
+        //Reset Story Models ¹öÆ° »ý¼º 
+        if(GUILayout.Button("Rest Stroy Modes"))
         {
             gameSystem.ResetStoryModels();
         }
@@ -25,7 +26,7 @@ public class GameSystemEdiot : Editor
 
 public class GameSystem : MonoBehaviour
 {
-    public static GameSystem instance;                      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ È­
+    public static GameSystem instance;                      //°£´ÜÇÑ ½Ì±ÛÅæ È­
 
     private void Awake()
     {
@@ -50,42 +51,45 @@ public class GameSystem : MonoBehaviour
     }
 
 
-
 #if UNITY_EDITOR
     [ContextMenu("Reset Story Models")]
     public void ResetStoryModels()
     {
-        stroyModels = Resources.LoadAll<StoryModel>(""); //Resource ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ ï¿½ï¿½ï¿½ StoryModel ï¿½ï¿½ ï¿½Ò·ï¿½ ï¿½Â´ï¿½. 
+        stroyModels = Resources.LoadAll<StoryModel>(""); //Resource Æú´õ ¾Æ·¡ ¸ðµç StoryModel À» ºÒ·¯ ¿Â´Ù. 
     }
 #endif
 
-    public void ChangeState(GAMESTATE temp)
+
+    public void ChangeState(GAMESTATE temp)                 //°ÔÀÓ »óÅÂ º¯°æ ÇÔ¼ö Ãß°¡ (ÀÎ¼ö·Î °ÔÀÓ»óÅÂ ¿­°ÅÇü)
     {
         currentState = temp;
 
         if(currentState == GAMESTATE.STROYSHOW)
         {
-            StoryShow(currentStoryIndex);
+            StoryShow(currentStoryIndex);                   //½ºÅä¸® Àç»ý
         }
     }
 
-    public void ApplyChoice(StoryModel.Reuslt result)
+    public void ApplyChoice(StoryModel.Reuslt result)           //°á°ú °ªÀ» ÅëÇÑ °ÔÀÓ ½Ã½ºÅÛ ÁøÇà ½ÃÄÑÁÖ´Â ÇÔ¼ö
     {
-        switch (result.resultType)
+        switch(result.resultType)
         {
             case StoryModel.Reuslt.ResultType.ChangeHp:
                 stats.currentHpPoint += result.value;
                 ChangeStats(result);
                 break;
+            
             case StoryModel.Reuslt.ResultType.AddExperience:
                 stats.currentXpPoint += result.value;
                 ChangeStats(result);
                 break;
+            
             case StoryModel.Reuslt.ResultType.GoToNextStory:
                 currentStoryIndex = result.value;
                 ChangeState(GAMESTATE.STROYSHOW);
-                ChangeStats(result); 
+                ChangeStats(result);
                 break;
+
             case StoryModel.Reuslt.ResultType.GoToRandomStory:
                 RandomStory();
                 ChangeState(GAMESTATE.STROYSHOW);
@@ -97,16 +101,16 @@ public class GameSystem : MonoBehaviour
         }
     }
 
-    public void ChangeStats(StoryModel.Reuslt result)
+    public void ChangeStats(StoryModel.Reuslt result)           //°ÔÀÓ ½ºÅÝ º¯°æ (½ºÅä¸® ¸ðµ¨ÀÇ °á°ú°ª)
     {
-        if(result.stats.hpPoint > 0) stats.hpPoint += result.stats.hpPoint;
-        if (result.stats.hpPoint > 0) stats.hpPoint += result.stats.spPoint;
+        if (result.stats.hpPoint > 0) stats.hpPoint += result.stats.hpPoint;
+        if (result.stats.spPoint > 0) stats.spPoint += result.stats.spPoint;
 
-        if (result.stats.hpPoint > 0) stats.hpPoint += result.stats.currentHpPoint;
-        if (result.stats.hpPoint > 0) stats.hpPoint += result.stats.currentSpPoint;
-        if (result.stats.hpPoint > 0) stats.hpPoint += result.stats.currentXpPoint;
+        if (result.stats.currentHpPoint > 0) stats.currentHpPoint += result.stats.currentHpPoint;
+        if (result.stats.currentSpPoint > 0) stats.currentSpPoint += result.stats.currentSpPoint;
+        if (result.stats.currentXpPoint > 0) stats.currentXpPoint += result.stats.currentXpPoint;
 
-        if(result.stats.strength > 0) stats.strength += result.stats.strength;
+        if (result.stats.strength > 0) stats.strength += result.stats.strength;
         if (result.stats.dexterity > 0) stats.dexterity += result.stats.dexterity;
         if (result.stats.consitution > 0) stats.consitution += result.stats.consitution;
         if (result.stats.wisdom > 0) stats.wisdom += result.stats.wisdom;
@@ -125,9 +129,9 @@ public class GameSystem : MonoBehaviour
     StoryModel FindStoryModel(int number)
     {
         StoryModel tempStoryModels = null;
-        for (int i = 0; i < stroyModels.Length; i++)             //for ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ StroyModel ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ Number ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½. 
+        for(int i = 0; i < stroyModels.Length; i++)             //for ¹®À¸·Î StroyModel À» °Ë»öÇÏ¿© Number ¿Í °°Àº ½ºÅä¸® ¹øÈ£·Î ½ºÅä¸® ¸ðµ¨À» Ã£¾Æ ¹ÝÈ¯ÇÑ´Ù. 
         {
-            if (stroyModels[i].storyNumber == number)
+            if (stroyModels[i].storyNumber == number) 
             {
                 tempStoryModels = stroyModels[i];
                 break;
@@ -142,7 +146,7 @@ public class GameSystem : MonoBehaviour
 
         List<StoryModel> storyModelList = new List<StoryModel>();
 
-        for (int i = 0; i < stroyModels.Length; i++)             //for ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ StroyModel ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ Mainï¿½ï¿½ ï¿½ï¿½ì¸¸ ï¿½ï¿½ï¿½ï¿½. 
+        for (int i = 0; i < stroyModels.Length; i++)             //for ¹®À¸·Î StroyModel À» °Ë»öÇÏ¿© MainÀÎ °æ¿ì¸¸ ÃßÃâ. 
         {
             if (stroyModels[i].storyType == StoryModel.STORYTYPE.MAIN)
             {
@@ -150,7 +154,7 @@ public class GameSystem : MonoBehaviour
             }
         }
 
-        tempStoryModels = storyModelList[Random.Range(0, storyModelList.Count)]; //ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½
+        tempStoryModels = storyModelList[Random.Range(0,storyModelList.Count)]; //¸®½ºÆ®¿¡¼­ ·£´ýÀ¸·Î ÇÏ³ª ¼±ÅÃ
         currentStoryIndex = tempStoryModels.storyNumber;
         return tempStoryModels;
     }

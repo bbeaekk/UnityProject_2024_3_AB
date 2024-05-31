@@ -1,8 +1,8 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewStroy", menuName = "ScriptableObjects/StoryModel")]
+[CreateAssetMenu(fileName = "NewStroy" , menuName = "ScriptableObjects/StoryModel")]
 public class StoryModel : ScriptableObject
 {
 
@@ -22,13 +22,13 @@ public class StoryModel : ScriptableObject
     [TextArea(10, 10)]
     public string storyText;
 
-    public Option[] options;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ 
+    public Option[] options;            //¼±ÅÃÁö ¹è¿­ 
 
     [System.Serializable]
     public class Option
     {
         public string optionText;
-        public string buttonText;       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Ì¸ï¿½
+        public string buttonText;       //¼±ÅÃÁö ¹öÆ°ÀÇ ÀÌ¸§
 
         public EventCheck eventCheck;
     }
@@ -52,14 +52,14 @@ public class StoryModel : ScriptableObject
 
         public EventType eventType;
 
-        public Reuslt[] sucessResult;           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ ï¿½è¿­
-        public Reuslt[] failResult;
+        public Reuslt[] sucessResult;           //¼±ÅÃÁö¿¡ ´ëÇÑ È¿°ú ¹è¿­
+        public Reuslt[] failResult;             
     }
 
     [System.Serializable]
-    public class Reuslt                     //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public class Reuslt                     //°á°ú°ª Á¤º¸ µ¥ÀÌÅÍ
     {
-        public enum ResultType : int
+        public enum ResultType: int
         {
             ChangeHp,
             ChangeSp,

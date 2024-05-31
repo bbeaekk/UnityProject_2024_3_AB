@@ -2,21 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExEventSubscriber : MonoBehaviour
+public class ExentSubscriber : MonoBehaviour
 {
     public ExEventChannel eventChannel;
 
     void OnEventRaised()
     {
-        Debug.Log(gameObject.name + " ÏóêÏÑú Ïù¥Î≤§Ìä∏ Î∞úÏÉù");
+        Debug.Log(gameObject.name + " ø°º≠ ¿Ã∫•∆Æ πﬂª˝");
     }
-
-    private void OnEnable()
+    private void OnEnable() //»∞º∫»≠ µ… ∂ß ¿Ã∫•∆Æ µÓ∑œ
     {
         eventChannel.OnEventRaised.AddListener(OnEventRaised);
-    }
-
-    private void OnDisable()
+    }    
+    private void OnDisable() //∫Ò»∞º∫»≠ µ… ∂ß ¿Ã∫•∆Æ «ÿ¡¶
     {
         eventChannel.OnEventRaised.RemoveListener(OnEventRaised);
     }
